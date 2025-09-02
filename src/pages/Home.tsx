@@ -1,17 +1,12 @@
-import { useState } from "react";
+
 import Header from "../components/Header";
 import ActionButtons from "../components/ActionButtons";
 import InfoButtons from "../components/InfoButtons";
 import FooterBar from "../components/FooterBar";
-import ContactModal from "../components/ContactModal";
+
 
 export default function Home() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleSubmit = (data: { name: string; phone: string; email: string; message: string }) => {
-    console.log("פרטים שהוזנו:", data);
-    // כאן בעתיד ניתן לשלוח לשרת או לשמור בבסיס נתונים
-  };
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -21,7 +16,7 @@ export default function Home() {
       {/* תוכן הדף */}
       <main className="flex flex-col items-center p-4 gap-6 flex-1">
         {/* כפתורי פעולה */}
-        <ActionButtons onContactClick={() => setIsModalOpen(true)} />
+        <ActionButtons />
 
         {/* מלל קצר */}
         <div className="text-center max-w-xl">
@@ -37,12 +32,7 @@ export default function Home() {
       {/* Footer – תמיד אחרי התוכן */}
       <FooterBar />
 
-      {/* חלון קופץ */}
-      <ContactModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        onSubmit={handleSubmit}
-      />
+
     </div>
   );
 }
