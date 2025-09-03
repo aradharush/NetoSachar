@@ -4,7 +4,6 @@ import mongoose from "mongoose";
 const MONGODB_URI = process.env.MONGODB_URI;
 
 let cached = global.mongoose;
-
 if (!cached) cached = global.mongoose = { conn: null, promise: null };
 
 async function connectToDatabase() {
@@ -21,7 +20,6 @@ async function connectToDatabase() {
   return cached.conn;
 }
 
-// Schema
 const contactSchema = new mongoose.Schema({
   name: String,
   email: String,
@@ -31,7 +29,6 @@ const contactSchema = new mongoose.Schema({
 
 const Contact = mongoose.models.Contact || mongoose.model("Contact", contactSchema);
 
-// פונקציית handler
 export default async function handler(req, res) {
   await connectToDatabase();
 
