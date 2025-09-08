@@ -1,7 +1,11 @@
 import mongoose from "mongoose";
-import nodemailer from "nodemailer";
+import sgMail from "@sendgrid/mail";
 
 const MONGODB_URI = process.env.MONGODB_URI;
+const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY;
+const EMAIL_USER = process.env.EMAIL_USER;
+
+sgMail.setApiKey(SENDGRID_API_KEY);
 
 let cached = global.mongoose;
 if (!cached) cached = global.mongoose = { conn: null, promise: null };
@@ -23,7 +27,7 @@ async function connectToDatabase() {
 const contactSchema = new mongoose.Schema({
   name: String,
   email: String,
-  phone: String, // הוספתי שדה phone
+  phone: String,
   message: String,
   createdAt: { type: Date, default: Date.now }
 });
@@ -35,39 +39,29 @@ export default async function handler(req, res) {
 
   if (req.method === "POST") {
     try {
-      // 1️⃣ שמירה במסד הנתונים
+      // שמירה במסד הנתונים
       const newContact = new Contact(req.body);
       const saved = await newContact.save();
 
-      // 2️⃣ שליחת מייל
-      const transporter = nodemailer.createTransport({
-        host: "smtp.gmail.com", // או שרת SMTP אחר
-        port: 465,
-        secure: true,
-        auth: {
-          user: process.env.EMAIL_USER, // המייל שלך
-          pass: process.env.EMAIL_PASS  // App Password
-        }
-      });
-
-      const mailOptions = {
-        from: `"Neto Sachar Contact" <${process.env.EMAIL_USER}>`,
-        to: process.env.EMAIL_USER, // שולח לעצמך
+      // שליחת מייל עם SendGrid
+      const msg = {
+        to: EMAIL_USER,   // כתובת שמקבלת את הפניות
+        from: EMAIL_USER, // חייב להיות הכתובת המאומתת ב-SendGrid
         subject: `פנייה חדשה מ-${saved.name}`,
         text: `
-            שם: ${saved.name}
-            טלפון: ${saved.phone || "-"}
-            מייל: ${saved.email}
-            הודעה: ${saved.message}
-                    `
+שם: ${saved.name}
+טלפון: ${saved.phone || "-"}
+מייל: ${saved.email}
+הודעה: ${saved.message}
+        `
       };
 
-      await transporter.sendMail(mailOptions);
+      await sgMail.send(msg);
 
       return res.status(201).json(saved);
     } catch (err) {
-      console.error(err);
-      return res.status(500).json({ error: err.message || "שגיאה בשליחת הפנייה" });
+      console.error("Error sending contact:", err.response?.body || err.message || err);
+      return res.status(500).json({ error: "שגיאה בשליחת הפנייה" });
     }
   } else if (req.method === "GET") {
     const contacts = await Contact.find();
