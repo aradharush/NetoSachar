@@ -7,12 +7,12 @@ const infoLinks = [
 
 export default function InfoButtons() {
   return (
-    <div className="flex flex-col items-center gap-6 p-4">
+    <div className="info-buttons-container">
       {infoLinks.map((info) => (
         <a
           key={info.label}
           href={info.link}
-          className="w-64 h-12 flex items-center justify-center bg-gray-300 border border-black rounded-lg text-center font-semibold text-black shadow hover:bg-gray-400 transition"
+          className="info-button"
         >
           {info.label}
         </a>
