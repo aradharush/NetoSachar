@@ -78,7 +78,7 @@ export default function ContactForm() {
         <form onSubmit={handleSubmit} className="flex flex-col gap-6 max-w-2xl w-full">
           {/* שם מלא */}
           <div className="flex flex-col">
-            <label htmlFor="name" className="text-gray-700 font-semibold mb-1">
+            <label htmlFor="name" className="text-gray-700 font-semibold mb-1 text-right">
               שם מלא
             </label>
             <input
@@ -93,7 +93,7 @@ export default function ContactForm() {
 
           {/* טלפון */}
           <div className="flex flex-col">
-            <label htmlFor="phone" className="text-gray-700 font-semibold mb-1">
+            <label htmlFor="phone" className="text-gray-700 font-semibold mb-1 text-right">
               טלפון
             </label>
             <input
@@ -108,7 +108,7 @@ export default function ContactForm() {
 
           {/* אימייל */}
           <div className="flex flex-col">
-            <label htmlFor="email" className="text-gray-700 font-semibold mb-1">
+            <label htmlFor="email" className="text-gray-700 font-semibold mb-1 text-right">
               מייל
             </label>
             <input
@@ -124,7 +124,7 @@ export default function ContactForm() {
 
           {/* הודעה */}
           <div className="flex flex-col">
-            <label htmlFor="message" className="text-gray-700 font-semibold mb-1">
+            <label htmlFor="message" className="text-gray-700 font-semibold mb-1 text-right">
               תיאור הפנייה
             </label>
             <textarea
@@ -135,6 +135,13 @@ export default function ContactForm() {
               required
               className="border-2 border-gray-300 p-3 rounded-xl h-36 w-full resize-none focus:border-blue-500 focus:outline-none transition-all"
             />
+          </div>
+
+          {/* הודעה */}
+          <div className="flex flex-col">
+            <label htmlFor="message" className="text-gray-700 font-semibold mb-1">
+                 &nbsp;
+            </label>
           </div>
 
           {/* כפתור שליחה */}

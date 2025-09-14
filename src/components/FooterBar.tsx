@@ -2,7 +2,7 @@ export default function FooterBar() {
   return (
     <footer className="bg-gray-100 shadow-inner w-full p-4 flex justify-center gap-12">
       <a
-        href="https://wa.me/0502812405"
+        href="https://wa.me/+972502812405"
         target="_blank"
         rel="noreferrer"
         className="transition-transform transform hover:scale-110"
@@ -13,6 +13,10 @@ export default function FooterBar() {
           alt="WhatsApp"
         />
       </a>
+      <label>&nbsp;</label>
+      <label>&nbsp;</label>
+      <label>&nbsp;</label>
+      <label>&nbsp;</label>
       <a
         href="https://www.facebook.com/share/16W8enzMW5/?mibextid=wwXIfr"
         target="_blank"
@@ -25,6 +29,10 @@ export default function FooterBar() {
           alt="Facebook"
         />
       </a>
+      <label>&nbsp;</label>
+      <label>&nbsp;</label>
+      <label>&nbsp;</label>
+      <label>&nbsp;</label>
       <a
         href="https://www.instagram.com/neto.sachar"
         target="_blank"
