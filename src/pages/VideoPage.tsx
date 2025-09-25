@@ -1,12 +1,23 @@
-
+import { useRef } from "react";
 import Header from "../components/Header"; // ודא שהנתיב נכון
 
 const videos = [
   { title: "וידאו 1", src: "/videos/tlush.mp4" },
-  { title: "וידאו 2", src: "/videos/teacher.mp4" },
+  { title: "וידאו 2", src: "/videos/teachers.mp4" },
 ];
 
 export default function VideosPage() {
+  // שמור רפרנסים לכל הסרטונים
+  const videoRefs = useRef<HTMLVideoElement[]>([]);
+
+  const handlePlay = (index: number) => {
+    videoRefs.current.forEach((video, i) => {
+      if (video && i !== index) {
+        video.pause(); // עצור כל וידאו אחר
+      }
+    });
+  };
+
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
       {/* Header */}
@@ -24,9 +35,14 @@ export default function VideosPage() {
             >
               <h2 className="text-lg font-semibold mb-4">{video.title}</h2>
               <video
-                className="w-1/2 mx-auto rounded-lg" // 👈 50% מרוחב המסך
+                ref={(el) => {
+                  if (el) videoRefs.current[index] = el;
+                }}
+                className="w-1/2 mx-auto rounded-lg"
                 controls
                 poster="/images/video-placeholder.png"
+                preload="none"
+                onPlay={() => handlePlay(index)} // 👈 כשנגן מתחיל לנגן
               >
                 <source src={video.src} type="video/mp4" />
                 הדפדפן שלך לא תומך בוידאו.

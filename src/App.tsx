@@ -9,7 +9,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/contact" element={<ContactForm />} />
-        <Route path="/videos" element={<VideosPage />} /> {/* כאן */}
+        <Route path="/videospage" element={<VideosPage />} /> {/* כאן */}
       </Routes>
     </Router>
   );
