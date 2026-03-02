@@ -52,7 +52,7 @@ export function Footer() {
 
         <div className="flex items-center gap-3">
           <a
-            href="https://wa.me/yourphonenumber"
+            href="https://wa.me/+972502812405"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="WhatsApp"
@@ -61,7 +61,7 @@ export function Footer() {
             <WhatsAppIcon className="size-4" />
           </a>
           <a
-            href="https://instagram.com/yourcompany"
+            href="https://instagram.com/neto.sachar"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Instagram"
@@ -70,7 +70,7 @@ export function Footer() {
             <InstagramIcon className="size-4" />
           </a>
           <a
-            href="https://facebook.com/yourcompany"
+            href="https://www.facebook.com/share/1HfAj9pLsy/?mibextid=wwXIfr"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Facebook"
