@@ -26,16 +26,6 @@ export function About() {
               {"אנחנו מאמינים שטרנספורמציה אמיתית דורשת יותר מייעוץ — היא דורשת שיתוף פעולה, אחריות והבנה עמוקה של האתגרים הייחודיים שלכם. לכן כל התקשרות מתחילה בהקשבה."}
             </p>
 
-            {/* Decorative Image */}
-            <div className="mt-8 overflow-hidden rounded-xl">
-              <Image
-                src="/images/hero-bg.jpg"
-                alt="צורות גיאומטריות חמות ומופשטות המייצגות חשיבה אסטרטגית"
-                width={600}
-                height={400}
-                className="h-48 w-full object-cover"
-              />
-            </div>
           </div>
 
           {/* Left in RTL - Stats */}
