@@ -6,13 +6,29 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { Send, CheckCircle2 } from "lucide-react"
+import { submitContactForm } from "@/app/actions/submitContact"
 
 export function Contact() {
   const [submitted, setSubmitted] = useState(false)
+  const [loading, setLoading] = useState(false) // סטייט לטעינה
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    setSubmitted(true)
+    setLoading(true)
+    
+    // איסוף הנתונים מהטופס
+    const formData = new FormData(e.currentTarget)
+    
+    // קריאה לפונקציית השרת
+    const result = await submitContactForm(formData)
+    
+    setLoading(false)
+
+    if (result.success) {
+      setSubmitted(true)
+    } else {
+      alert("אירעה שגיאה. אנא נסו שוב.")
+    }
   }
 
   return (
@@ -21,6 +37,7 @@ export function Contact() {
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-20">
           {/* Info */}
           <div className="flex flex-col justify-center">
+            {/* ... כל הטקסט של ה-Info נשאר בדיוק אותו דבר ... */}
             <p className="text-sm font-semibold uppercase tracking-widest text-muted-foreground">
               {"צרו קשר"}
             </p>
@@ -66,51 +83,29 @@ export function Contact() {
                 <div className="grid gap-5 sm:grid-cols-2">
                   <div className="flex flex-col gap-2">
                     <Label htmlFor="name">{"שם"}</Label>
-                    <Input
-                      id="name"
-                      name="name"
-                      placeholder="השם שלכם"
-                      required
-                    />
+                    <Input id="name" name="name" placeholder="השם שלכם" required />
                   </div>
                   <div className="flex flex-col gap-2">
                     <Label htmlFor="email">{"אימייל"}</Label>
-                    <Input
-                      id="email"
-                      name="email"
-                      type="email"
-                      placeholder="you@company.com"
-                      dir="ltr"
-                      required
-                    />
+                    <Input id="email" name="email" type="email" placeholder="you@company.com" dir="ltr" required />
                   </div>
                 </div>
                 <div className="flex flex-col gap-2">
                   <Label htmlFor="subject">{"נושא"}</Label>
-                  <Input
-                    id="subject"
-                    name="subject"
-                    placeholder="במה נוכל לעזור?"
-                    required
-                  />
+                  <Input id="subject" name="subject" placeholder="במה נוכל לעזור?" required />
                 </div>
                 <div className="flex flex-col gap-2">
                   <Label htmlFor="message">{"הודעה"}</Label>
-                  <Textarea
-                    id="message"
-                    name="message"
-                    placeholder="ספרו לנו על הפרויקט שלכם..."
-                    className="min-h-32"
-                    required
-                  />
+                  <Textarea id="message" name="message" placeholder="ספרו לנו על הפרויקט שלכם..." className="min-h-32" required />
                 </div>
                 <Button
                   type="submit"
                   size="lg"
                   className="mt-2 w-full rounded-full text-base"
+                  disabled={loading} // מנטרל את הכפתור בזמן טעינה
                 >
-                  {"שליחת הודעה"}
-                  <Send className="me-1 size-4" />
+                  {loading ? "שולח..." : "שליחת הודעה"}
+                  {!loading && <Send className="me-1 size-4" />}
                 </Button>
               </form>
             )}
