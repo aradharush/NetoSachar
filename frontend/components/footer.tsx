@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Image from "next/image"
 
 function WhatsAppIcon({ className }: { className?: string }) {
   return (
@@ -43,11 +44,16 @@ export function Footer() {
   return (
     <footer className="border-t border-border/50 bg-background">
       <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-6 px-6 py-8 md:flex-row">
-        <Link
-          href="/"
-          className="font-serif text-lg font-bold tracking-tight text-foreground"
-        >
-          Apex
+        {/* Logo */}
+        <Link href="/" className="flex items-center gap-2">
+          <Image 
+            src="/neto_sachar_logo.png"       
+            alt="Neto Sachar Logo"     
+            width={120}          
+            height={40}          
+            className="h-12 w-auto" 
+            priority             
+          />
         </Link>
 
         <div className="flex items-center gap-3">
